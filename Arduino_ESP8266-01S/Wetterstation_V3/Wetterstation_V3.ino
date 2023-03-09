@@ -13,7 +13,7 @@
 #include "addons/TokenHelper.h"
 // Provide the RTDB payload printing info and other helper functions.
 #include "addons/RTDBHelper.h"
-
+// Defines BMP280 Sensor
 #define BMP_SCK 13
 #define BMP_MISO 12
 #define BMP_MOSI 11 
@@ -33,6 +33,7 @@
 // Insert RTDB URLefine the RTDB URL
 #define DATABASE_URL "https://wetterstation-c49dc-default-rtdb.europe-west1.firebasedatabase.app/"
 
+// Defines DHT10 Sensor
 #define DHTPIN 1        //GPIO1 (Tx)
 #define DHTTYPE  DHT11
 #define ONE_WIRE_BUS 3  // GPIO3=Rx
@@ -105,7 +106,7 @@ unsigned long getTime() {
 
 void setup(){
   Serial.begin(115200);
-Wire.begin(0,2); 
+  Wire.begin(0,2); 
   // Initialize BME280 sensor
   initBME();
   initWiFi();
