@@ -1,0 +1,4 @@
+11:52:06.166 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+11:52:06.807 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+11:52:10.714 [NamespaceSystem-akka.actor.default-dispatcher-6] INFO com.firebase.core.namespace.NamespaceActor - wetterstation-c49dc-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 631ms, init: 0ms
+11:52:10.942 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace wetterstation-c49dc-default-rtdb status Active to Active

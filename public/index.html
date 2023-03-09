@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wetterstation</title>
+
+    <!-- include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+
+    <!-- include only the Firebase features as you need -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+
+    <script>
+      // Replace with your app config object
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "########################################",
+        authDomain: "wetterstation-c49dc.firebaseapp.com",
+        databaseURL: "https://wetterstation-c49dc-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "wetterstation-c49dc",
+        storageBucket: "wetterstation-c49dc.appspot.com",
+        messagingSenderId: "613964763799",
+        appId: "1:613964763799:web:7867b326ac5de913600fd2",
+        measurementId: "G-XK9XPL7ERK"
+      };
+
+      // Initialize firebase
+      firebase.initializeApp(firebaseConfig);
+      
+      // Make auth and database references
+      const auth = firebase.auth();
+      const db = firebase.database();
+
+    </script>
+
+    <!-- include to use jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--include icons from fontawesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/cc52992c2e.js" crossorigin="anonymous"></script>
+    <!--reference a stylesheet-->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--reference for font-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <!--AUTHENTICATION BAR (USER DETAILS/LOGOUT BUTTON)-->
+    <div id="authentication-bar" style="display: none;">
+      <p style="color:#ffffff;"><span id="authentication-status">User logged in</span>
+        <span id="user-details">USEREMAIL</span>
+        <a href="/" id="logout-link" style="color:#ffffff;">(logout)</a>
+      </p>
+    </div>
+
+    <!--LOGIN FORM-->
+    <form id="login-form" style="display: none;">
+      <div class="form-elements-container">
+        <label for="input-email"><b style="color:#ffffff;">Email</b></label>
+        <input type="text" placeholder="Email" id="input-email" required>
+
+        <label for="input-password"><b style="color:#ffffff;">Password</b></label>
+        <input type="password" placeholder="Passwort" id="input-password" required>
+
+        <button type="submit" id="login-button">Login</button>
+        <p id="error-message" style="color:red;"></p>
+      </div>
+    </form>
+
+    <!--CONTENT (SENSOR READINGS)-->
+    <div class="content-sign-in" id="content-sign-in" style="display: none;">
+
+      <div id="cards-div">
+        <div class="cards">
+          <!--SENSOR DATA-->
+          <div class="card">
+            <p style="color:#059e8a;"><i class="fas fa-thermometer-half" style="color:#059e8a;"></i> Temperatur</p>
+            <p><span class="reading"><span id="temp"></span> &deg;C</span>
+              <i class="fa-solid fa-arrow-up-right" id="temptrend" style="color:#059e8a;"></i>
+            </p>
+            <p style="color:#00add6;"><i class="fas fa-tint" style="color:#00add6;"></i>Luftfeuchtigkeit</p>
+            <p><span class="reading"><span id="hum"></span> &percnt;</span>
+              <i class="fa-solid fa-arrow-up-right" id="humtrend" style="color:#00add6;"></i>
+            </p>
+            <p style="color:#e1e437;"><i class="fas fa-angle-double-down" style="color:#e1e437;"></i>Druck</p>
+            <p><span class="reading"><span id="pres"></span> hPa</span>
+              <i class="fa-solid fa-arrow-up-right" id="prestrend" style="color:#e1e437;"></i>
+            </p>
+            <p><span class ="date-time">Last update: <span id="lastUpdate"></span></span></p>
+          </div>
+          <!--RECOMMENDATION-->
+          <div class="card">
+            <p style="color: rgb(198, 198, 198);"><span id="date"></span></p>
+            <p style="color:#1EFA69;"><i class="fa-solid fa-mountain-sun" style="color:#1EFA69;"></i>Bedingungen</p>
+            <p><span class="reading"><span id="recCon"></p>
+            <p style="color:#30F2F2;"><i class="fa-regular fa-person-dress" style="color:#30F2F2;"></i>Kleidung</p>
+            <p><span class="reading"><span id="recClo"></p>
+            <p style="color:#21A2DB;"><i class="fa-solid fa-umbrella" style="color:#21A2DB;"></i>Regenschirm</p>
+            <p><span class="reading"><span id="recUmb"></p>
+          </div>
+        </div>
+      </div>
+
+      <!--CHARTS-->
+       <!--TEMPERATURE-CHART-->
+        <div class="cards">
+          <div class="card">
+            <p style="color:#059e8a;"><i class="fas fa-thermometer-half" style="color:#059e8a;"></i> Temperatur</p>
+            <div>
+              <canvas id="tempchart"></canvas>
+            </div>
+          </div>
+        </div>
+        <!--HUMIDITY-CHART-->
+        <div class="cards">
+          <div class="card">
+            <p style="color:#00add6;"><i class="fas fa-tint" style="color:#00add6;"></i> Luftfeuchtigkeit</p>
+            <div>
+              <canvas id="humchart"></canvas>
+            </div>
+          </div>
+        </div>
+        <!--PRESSURE-CHART-->
+        <div class="cards">
+          <div class="card">
+            <p style="color:#e1e437;"><i class="fas fa-angle-double-down" style="color:#e1e437;"></i> Luftdruck</p>
+            <div>
+              <canvas id="preschart"></canvas>
+            </div>
+          </div>
+      </div>
+  </div>
+
+    <!--INCLUDE JS FILES-->
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </body>
+
+</html>
