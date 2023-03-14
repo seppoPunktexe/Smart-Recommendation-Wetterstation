@@ -2,6 +2,6 @@
 
 Eine Smart-Recommendation Wetterstation die auf Basis eines ESP8266-01S mit dem BMP280 und DHT10 Sensoren Temperatur, Luftfeuchtigkeit und Luftdruck misst. Diese Daten werden dann an eine Firebase (https://firebase.google.com) Realtime-Datenbank geschickt und gespeichert. Auf einer von Firebase gehosteten Website werden dann die Daten angezeigt. Ebenfalls wird auf Basis der Daten eine Empfehlung herrausgegeben.
 Die Empefehlung kann per Discord Bot als Benarichtigung aufs Handy gemeldet werden. 
-![Bildschirmfoto 2023-03-09 um 16 52 07](https://user-images.githubusercontent.com/121157064/224079162-aec30ded-6e0a-426e-9842-fef77354b490.png)
-![Bildschirmfoto 2023-03-09 um 16 52 16](https://user-images.githubusercontent.com/121157064/224079203-c2167713-ee45-40f0-8dd3-2de6e25b2053.png)
-![Bildschirmfoto 2023-03-09 um 16 52 25](https://user-images.githubusercontent.com/121157064/224079216-e26cdecc-a19f-4253-a47f-a89cfc7f30cf.png)
+![Bildschirmfoto 2023-03-14 um 10 19 42](https://user-images.githubusercontent.com/121157064/224954492-94d4e38b-4ab8-4b9b-b350-194a32b19cd1.png)
+![Bildschirmfoto 2023-03-14 um 10 19 49](https://user-images.githubusercontent.com/121157064/224954503-1d1e54e0-9626-4a9a-b67d-43f44c21086e.png)
+![Bildschirmfoto 2023-03-14 um 10 19 53](https://user-images.githubusercontent.com/121157064/224954512-f9f3d3a1-b77c-4778-9488-42d425a3b34b.png)
